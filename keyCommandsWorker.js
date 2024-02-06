@@ -8,10 +8,17 @@ chrome.action.onClicked.addListener((tab) => {
 
 chrome.commands.onCommand.addListener((command) => {
     chrome.tabs.query({active: true}, function(tabs) {
-        chrome.scripting.executeScript({
-            target: { tabId: tabs[0].id },
-            func: contentScriptFunc
-        });
+        if (command === "login") {
+            chrome.scripting.executeScript({
+                target: { tabId: tabs[0].id },
+                func: contentScriptFunc
+            });
+        } else if (command === "jira-copy") {
+            chrome.scripting.executeScript({
+                target: { tabId: tabs[0].id },
+                func: copyJiraName
+            });
+        }
     });
 });
 
@@ -24,4 +31,11 @@ function contentScriptFunc(name) {
       passwordId.value = "admin";
       loginId.click();
     }
+}
+
+function copyJiraName(name) {
+    const text = "textContent" in document.body ? "textContent" : "innerText";
+    const keyElement = document.querySelectorAll('[data-testid="issue.views.issue-base.foundation.breadcrumbs.current-issue.item"]')[0][text];
+    const nameElement = document.querySelectorAll('[data-testid="issue.views.issue-base.foundation.summary.heading"]')[0][text];
+    navigator.clipboard.writeText(keyElement + '. ' + nameElement);
 }

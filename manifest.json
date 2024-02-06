@@ -28,13 +28,12 @@
       },
       "description": "Login with key combination as admin/admin"
     },
-    "_execute_action": {
+    "jira-copy": {
       "suggested_key": {
-        "windows": "Ctrl+Shift+S",
-        "mac": "Command+Shift+S",
-        "chromeos": "Ctrl+Shift+S",
-        "linux": "Ctrl+Shift+S"
-      }
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Copy JIRA Issue's key ready to push"
     }
   },
   "icons": {
