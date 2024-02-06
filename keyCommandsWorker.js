@@ -37,5 +37,7 @@ function copyJiraName(name) {
     const text = "textContent" in document.body ? "textContent" : "innerText";
     const keyElement = document.querySelectorAll('[data-testid="issue.views.issue-base.foundation.breadcrumbs.current-issue.item"]')[0][text];
     const nameElement = document.querySelectorAll('[data-testid="issue.views.issue-base.foundation.summary.heading"]')[0][text];
-    navigator.clipboard.writeText(keyElement + '. ' + nameElement);
+    if (keyElement && nameElement) {
+        navigator.clipboard.writeText(keyElement + '. ' + nameElement);
+    }
 }
